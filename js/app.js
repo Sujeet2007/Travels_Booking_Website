@@ -3,13 +3,15 @@ const CITIES = [
   "Rome", "Barcelona", "Sydney", "Singapore", "Los Angeles", "Chicago",
 ];
 
+const IMG_PARAMS = "auto=compress&cs=tinysrgb&w=600&h=400&fit=crop";
+
 const DESTINATIONS = [
-  { id: "paris", name: "Paris", country: "France", price: 899, image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=400&fit=crop" },
-  { id: "tokyo", name: "Tokyo", country: "Japan", price: 1249, image: "https://images.unsplash.com/photo-1540959733332-eab4de63cd21?w=600&h=400&fit=crop" },
-  { id: "bali", name: "Bali", country: "Indonesia", price: 749, image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&h=400&fit=crop" },
-  { id: "santorini", name: "Santorini", country: "Greece", price: 1099, image: "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49b?w=600&h=400&fit=crop" },
-  { id: "newyork", name: "New York", country: "USA", price: 649, image: "https://images.unsplash.com/photo-1496442226666-8d0d0e62e6e9?w=600&h=400&fit=crop" },
-  { id: "dubai", name: "Dubai", country: "UAE", price: 999, image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=400&fit=crop" },
+  { id: "paris", name: "Paris", country: "France", price: 899, image: `https://images.pexels.com/photos/1796736/pexels-photo-1796736.jpeg?${IMG_PARAMS}` },
+  { id: "tokyo", name: "Tokyo", country: "Japan", price: 1249, image: `https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?${IMG_PARAMS}` },
+  { id: "bali", name: "Bali", country: "Indonesia", price: 749, image: `https://images.pexels.com/photos/275687/pexels-photo-275687.jpeg?${IMG_PARAMS}` },
+  { id: "santorini", name: "Santorini", country: "Greece", price: 1099, image: `https://images.pexels.com/photos/3408354/pexels-photo-3408354.jpeg?${IMG_PARAMS}` },
+  { id: "newyork", name: "New York", country: "USA", price: 649, image: `https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?${IMG_PARAMS}` },
+  { id: "dubai", name: "Dubai", country: "UAE", price: 999, image: `https://images.pexels.com/photos/3787839/pexels-photo-3787839.jpeg?${IMG_PARAMS}` },
 ];
 
 const DEALS = [
@@ -71,8 +73,15 @@ function setupEventListeners() {
   document.getElementById("swapBtn").addEventListener("click", swapCities);
   document.getElementById("modalClose").addEventListener("click", closeModal);
   document.getElementById("bookingsModalClose").addEventListener("click", closeBookingsModal);
-  document.getElementById("viewBookingsBtn").addEventListener("click", showBookings);
+  document.getElementById("viewBookingsBtn").addEventListener("click", () => {
+    closeNav();
+    showBookings();
+  });
   document.getElementById("navToggle").addEventListener("click", toggleNav);
+
+  document.querySelectorAll(".nav-links a").forEach((link) => {
+    link.addEventListener("click", closeNav);
+  });
 
   document.querySelectorAll('input[name="tripType"]').forEach((radio) => {
     radio.addEventListener("change", updateTripTypeUI);
@@ -116,6 +125,10 @@ function swapCities() {
 
 function toggleNav() {
   document.querySelector(".nav").classList.toggle("open");
+}
+
+function closeNav() {
+  document.querySelector(".nav").classList.remove("open");
 }
 
 function showFormError(message) {
@@ -617,7 +630,9 @@ function renderDestinations() {
   grid.innerHTML = DESTINATIONS.map(
     (d) => `
     <article class="destination-card" data-dest="${d.name}">
-      <div class="destination-image" style="background-image: url('${d.image}')"></div>
+      <div class="destination-image">
+        <img src="${d.image}" alt="${d.name}, ${d.country}" loading="lazy" decoding="async">
+      </div>
       <div class="destination-info">
         <h3>${d.name}</h3>
         <p class="location">${d.country}</p>
@@ -629,6 +644,13 @@ function renderDestinations() {
     </article>
   `
   ).join("");
+
+  grid.querySelectorAll(".destination-image img").forEach((img) => {
+    img.addEventListener("error", () => {
+      img.remove();
+      img.parentElement.classList.add("destination-image--fallback");
+    });
+  });
 
   grid.querySelectorAll("[data-book]").forEach((btn) => {
     btn.addEventListener("click", (e) => {
