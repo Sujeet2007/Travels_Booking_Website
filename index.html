@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wanderlust — Travel Booking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <nav class="nav container">
+      <a href="#" class="logo">
+        <span class="logo-icon">✈</span>
+        Wanderlust
+      </a>
+      <ul class="nav-links">
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#deals">Deals</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <button class="btn btn-outline nav-cta" id="viewBookingsBtn">My Bookings</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="container hero-content">
+        <h1>Discover your next adventure</h1>
+        <p class="hero-subtitle">Book flights, hotels, and vacation packages at the best prices.</p>
+
+        <div class="booking-card">
+          <div class="booking-tabs">
+            <button class="tab active" data-tab="flights">Flights</button>
+            <button class="tab" data-tab="hotels">Hotels</button>
+            <button class="tab" data-tab="packages">Packages</button>
+          </div>
+
+          <form class="booking-form" id="bookingForm" novalidate>
+            <div id="formError" class="form-error" role="alert" hidden></div>
+
+            <div class="form-panel active" data-panel="flights">
+              <div class="trip-type-row">
+                <label class="trip-type">
+                  <input type="radio" name="tripType" value="roundtrip" checked> Round trip
+                </label>
+                <label class="trip-type">
+                  <input type="radio" name="tripType" value="oneway"> One way
+                </label>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="from">From</label>
+                  <input type="text" id="from" placeholder="City or airport" list="cityList">
+                </div>
+                <button type="button" class="swap-btn" id="swapBtn" title="Swap cities">⇄</button>
+                <div class="form-group">
+                  <label for="to">To</label>
+                  <input type="text" id="to" placeholder="City or airport" list="cityList">
+                </div>
+              </div>
+              <datalist id="cityList"></datalist>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="depart">Depart</label>
+                  <input type="date" id="depart">
+                </div>
+                <div class="form-group return-group" id="returnGroup">
+                  <label for="return">Return</label>
+                  <input type="date" id="return">
+                </div>
+                <div class="form-group">
+                  <label for="travelers">Travelers</label>
+                  <select id="travelers">
+                    <option value="1">1 Adult</option>
+                    <option value="2" selected>2 Adults</option>
+                    <option value="3">3 Adults</option>
+                    <option value="4">4 Adults</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-panel" data-panel="hotels">
+              <div class="form-row">
+                <div class="form-group full">
+                  <label for="destination">Destination</label>
+                  <input type="text" id="destination" placeholder="City, hotel, or landmark">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="checkin">Check-in</label>
+                  <input type="date" id="checkin">
+                </div>
+                <div class="form-group">
+                  <label for="checkout">Check-out</label>
+                  <input type="date" id="checkout">
+                </div>
+                <div class="form-group">
+                  <label for="guests">Guests</label>
+                  <select id="guests">
+                    <option value="1">1 Guest</option>
+                    <option value="2" selected>2 Guests</option>
+                    <option value="3">3 Guests</option>
+                    <option value="4">4+ Guests</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-panel" data-panel="packages">
+              <div class="form-row">
+                <div class="form-group full">
+                  <label for="packageDest">Package destination</label>
+                  <select id="packageDest">
+                    <option value="">Select a package</option>
+                    <option value="bali">Bali Paradise — 7 nights</option>
+                    <option value="paris">Paris Romance — 5 nights</option>
+                    <option value="tokyo">Tokyo Explorer — 6 nights</option>
+                    <option value="santorini">Santorini Escape — 4 nights</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="packageDate">Start date</label>
+                  <input type="date" id="packageDate">
+                </div>
+                <div class="form-group">
+                  <label for="packageTravelers">Travelers</label>
+                  <select id="packageTravelers">
+                    <option value="1">1 Person</option>
+                    <option value="2" selected>2 People</option>
+                    <option value="3">3 People</option>
+                    <option value="4">4 People</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-search" id="searchBtn">
+              <span class="btn-label">Search & Book</span>
+              <span class="btn-loading" hidden>
+                <span class="spinner"></span> Searching...
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="destinations" id="destinations">
+      <div class="container">
+        <h2>Popular destinations</h2>
+        <p class="section-subtitle">Handpicked places travelers love right now</p>
+        <div class="destinations-grid" id="destinationsGrid"></div>
+      </div>
+    </section>
+
+    <section class="deals" id="deals">
+      <div class="container">
+        <h2>Featured deals</h2>
+        <p class="section-subtitle">Limited-time offers — book before they're gone</p>
+        <div class="deals-grid" id="dealsGrid"></div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <div class="about-content">
+          <h2>Why book with Wanderlust?</h2>
+          <ul class="features-list">
+            <li>
+              <span class="feature-icon">🛡️</span>
+              <div>
+                <strong>Best price guarantee</strong>
+                <p>Find a lower price? We'll match it and give you 10% off.</p>
+              </div>
+            </li>
+            <li>
+              <span class="feature-icon">📞</span>
+              <div>
+                <strong>24/7 support</strong>
+                <p>Our travel experts are here whenever you need help.</p>
+              </div>
+            </li>
+            <li>
+              <span class="feature-icon">✨</span>
+              <div>
+                <strong>Flexible cancellation</strong>
+                <p>Change or cancel most bookings free up to 48 hours before.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-number">2M+</span>
+            <span class="stat-label">Happy travelers</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">150+</span>
+            <span class="stat-label">Countries</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">4.8</span>
+            <span class="stat-label">Average rating</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <span class="logo-icon">✈</span>
+        Wanderlust
+      </div>
+      <p>&copy; 2026 Wanderlust Travel. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div class="modal" id="bookingModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- My Bookings Modal -->
+  <div class="modal" id="bookingsModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content modal-lg">
+      <button class="modal-close" id="bookingsModalClose">&times;</button>
+      <h2>My Bookings</h2>
+      <div id="bookingsList"></div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
