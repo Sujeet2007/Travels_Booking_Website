@@ -1,43 +1,43 @@
-# Wanderlust — Travel Booking Website
+# Travels Booking Website
 
-A simple, responsive travel booking website built with HTML, CSS, and JavaScript. No build step required.
+A simple travel booking site built with HTML, CSS, and JavaScript. Search and book flights, hotels, and packages — no backend required.
 
 ## Features
 
-- **Flight, hotel, and package booking** — tabbed search form on the homepage
-- **Popular destinations** — click a card to pre-fill your search
-- **Featured deals** — limited-time offers section
-- **Booking flow** — search results, selection, and confirmation modal
-- **My Bookings** — bookings saved in browser localStorage
-- **Responsive design** — works on desktop and mobile
+- Book **flights**, **hotels**, and **vacation packages**
+- Browse popular destinations and deals
+- View, cancel, and manage bookings (saved in your browser)
+- Responsive layout for mobile and desktop
 
-## Quick start
+## Run locally
 
-1. Open `index.html` in your browser (double-click or drag into a browser window).
+Open `index.html` in your browser, or start a local server:
 
-   Or run a local server:
+```bash
+python -m http.server 8080
+```
 
-   ```bash
-   # Python
-   python -m http.server 8080
-
-   # Node (if you have npx)
-   npx serve .
-   ```
-
-2. Visit `http://localhost:8080` (or open the file directly).
+Then visit [http://localhost:8080](http://localhost:8080).
 
 ## Project structure
 
 ```
-├── index.html      # Main page
-├── css/
-│   └── styles.css  # Styles
-├── js/
-│   └── app.js      # Booking logic
+├── index.html
+├── css/styles.css
+├── js/app.js
 └── README.md
 ```
 
-## Notes
+## Tech stack
 
-This is a front-end demo. Bookings are stored locally in your browser only — there is no real payment or backend.
+- HTML5
+- CSS3
+- Vanilla JavaScript
+
+## Note
+
+This is a front-end demo. Bookings are stored in `localStorage` only — there is no real payment or server.
+
+## Author
+
+[Sujeet2007](https://github.com/Sujeet2007)
