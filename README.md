@@ -1,3 +1,5 @@
+![Vibe Coded](https://img.shields.io/badge/Built_With-Vibe_Coding-8A2BE2?style=for-the-badge&logo=probot)
+
 # Travels Booking Website
 
 A simple travel booking site built with HTML, CSS, and JavaScript. Search and book flights, hotels, and packages — no backend required.
